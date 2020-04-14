@@ -65,22 +65,23 @@ function truthTable(...args) {
 
 	for (i = columns; i > 0; --i) {
         console.log(i)
-        console.log(columnLetter = column[columnNum])
-        columnLetter = [];
+        console.log(column = columnLetter[columnNum])
+        column = [];
 
         for (i = rows; i > 0; --i) {
-            (i > (rows / 2)) ? columnLetter.push(0) : columnLetter.push(1);
-            }
-
-        console.log(column[columnNum], columnLetter)
-        // ++columnNum;
+            console.log(i);
+            (i > (rows / 2)) ? column.push(0) : column.push(1);
         }
-        // return columnLetter
+
+        console.log(columnLetter[columnNum], column)
+        ++columnNum;
+    }
+    // return columnLetter
     
 }
 
 
-let column = ['A', 'B', 'C', 'D', 'C', 'E', 'F']
+let columnLetter = ['A', 'B', 'C', 'D', 'C', 'E', 'F']
 let columnNum = 0;
 
 let columns = 0;
