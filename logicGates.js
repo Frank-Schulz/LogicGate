@@ -63,6 +63,17 @@ function truthTable(...args) {
     rows = Math.pow(2, columns)
     console.log(columns, rows)
 
+    // ------------------------------------------
+
+    for (i = columns; i > 0; --i) {
+        console.log(i)
+        console.log(column = columnLetter[columnNum])
+        column = [];
+        ++columnNum;
+    }
+
+    // -----------------------------------------------------
+
 	for (i = columns; i > 0; --i) {
         console.log(i)
         console.log(column = columnLetter[columnNum])
