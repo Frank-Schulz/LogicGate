@@ -135,7 +135,7 @@ console.log(arrrFlat);
 
 // variable reset
 arrrFlat = [];
-// Start of array flattening function
+// Start of array flattening function / 2 levels
 function flatten(array) {
     // Search through array / if nested array is found
     array.forEach(element => {
@@ -167,7 +167,7 @@ console.log(arrrFlat);
 
 // variable reset
 arrrFlat = [];
-// Start of array flattening function
+// Start of array flattening function / 2 levels
 function flatten(array) {
     // Search through array / if nested array is found
     array.forEach(element => {(Array.isArray(element)) ? (
