@@ -32,7 +32,7 @@ function truthColumn() {
 function truthTable(columns) {
     // variable initialization / how many rows and columns
     rows = Math.pow(2, columns);
-    console.log(columns, rows);
+    // console.log(columns, rows);
 
     let otherChar = ((columns - 1) * (rows + 1));
     // console.log(otherChar);
@@ -81,5 +81,17 @@ function truthTable(columns) {
     return table;
 };
 
-let tTable = truthTable(3);
-console.log(tTable);
+// let tTable = truthTable(2);
+// console.log(tTable);
+
+// export truth table array
+exports.truthTable = function(a) {
+    let tTable = truthTable(a);
+    console.log(tTable);
+    return tTable;
+}
+
+// export truth table array
+exports.array = function() {
+    return arr;
+}
