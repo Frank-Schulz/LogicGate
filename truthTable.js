@@ -1,3 +1,5 @@
+'use strict';
+
 // Start of truthTable function / generates a truth table based on input
 // Variable initialization
 let arr = [];
@@ -9,7 +11,7 @@ let rows = 0;
 let cap = 14;
 
 // Function to generate the 0's and 1's on each column
-function truthColumn() {
+function truthColumn(column) {
 
     let columnCount = columnNum + 1;
     // length of the set
@@ -17,8 +19,8 @@ function truthColumn() {
     // number of sets
     let numSets = (rows / set);
     // generate the 0's and 1's for each set of sets per column
-    for (rep = numSets; rep > 0; --rep) {
-        for (i = set; i > 0; --i) {
+    for (let rep = numSets; rep > 0; --rep) {
+        for (let i = set; i > 0; --i) {
             (i > (set / 2)) ? 
                 column.push(0): 
                 column.push(1);
@@ -54,15 +56,15 @@ function truthTable(columns) {
         The minimum possible value is 1`;
     }
     // function to generate the individual columns
-	for (ii = 0; ii < columns; ++ii) {
+	for (let ii = 0; ii < columns; ++ii) {
         // console.log(ii);
         
         let columnLetter = (String.fromCharCode(65 + ii));
         table += `${columnLetter} `;
         // console.log(table);
-        column = [];
+        let column = [];
 
-        arr.push(truthColumn());
+        arr.push(truthColumn(column));
         ++columnNum;
     }
     table += '\n';
@@ -70,28 +72,23 @@ function truthTable(columns) {
     
     // console.log(arr);
     
-    for (q = 0; q < rows; ++q) {
-        for (z = 0; z < arr.length; ++z) {
+    for (let q = 0; q < rows; ++q) {
+        for (let z = 0; z < arr.length; ++z) {
             table += `${(arr[z][q])} `;
             // console.log(table);
         }
         table += '\n';
     }
 
-    return table;
+    return arr;
 };
 
-// let tTable = truthTable(2);
+// let tTable = truthTable(3);
 // console.log(tTable);
 
 // export truth table array
-exports.truthTable = function(a) {
-    let tTable = truthTable(a);
-    console.log(tTable);
-    return tTable;
-}
-
-// export truth table array
-exports.array = function() {
-    return arr;
+exports.array = function(a) {
+    let array = truthTable(a);
+    console.log(array);
+    return array;
 }

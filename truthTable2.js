@@ -1,3 +1,4 @@
+'use strict';
 /*
 // truth table call
 const truthTable = require('./truthTable.js');
@@ -29,16 +30,16 @@ let columns
 columns = array[1].length;
 console.log(columns)
 
-let tableCheck = [];
-for (i = 0; i < tableColumns; ++i) {
+let arrayId = [];
+for (let i = 0; i < tableColumns; ++i) {
     let columnLetter = (String.fromCharCode(65 + i));
     console.log(columnLetter);
 
-    tableCheck[columnLetter] = array.shift(i);
+    arrayId[columnLetter] = array.shift(i);
 };
-console.log(tableCheck["A"])
-console.log(tableCheck["B"])
-console.log(tableCheck["C"])
+console.log(arrayId["A"])
+console.log(arrayId["B"])
+console.log(arrayId["C"])
 
 let and;
 let or;
@@ -49,7 +50,7 @@ let result =[];
 function AND(a, b) {
     result = [];
     console.log(a,b);
-    for (bit = 0; bit < columns; ++bit) {
+    for (let bit = 0; bit < columns; ++bit) {
         and = (a[bit] === 1 && b[bit] === 1) ? 1 : 0;
         result.push(and);
     }
@@ -60,7 +61,7 @@ function AND(a, b) {
 function OR(a, b) {
     result = [];
     console.log(a,b);
-    for (bit = 0; bit < columns; ++bit) {
+    for (let bit = 0; bit < columns; ++bit) {
         or = (a[bit] === 1 || b[bit] === 1) ? 1 : 0;
         result.push(or);
     };
@@ -72,7 +73,7 @@ function OR(a, b) {
 function NOT(a) {
     result = [];
     console.log(a);
-    for (bit = 0; bit < columns; ++bit) {
+    for (let bit = 0; bit < columns; ++bit) {
         not = (a[bit] === 0) ? 1 : 0;
         result.push(not);
     }
@@ -85,14 +86,14 @@ let y = [];
 let z = [];
 
 // for (ii = 0; ii < columns; ++ii) {
-//     console.log(tableCheck["A"][ii])
-//     result = AND(tableCheck["A"][ii],tableCheck["B"][ii])
+//     console.log(arrayId["A"][ii])
+//     result = AND(arrayId["A"][ii],arrayId["B"][ii])
 //     x.push(result);
 // }
 // console.log(x)
 
 
-// result = AND(tableCheck["A"][7],tableCheck["B"][7])
+// result = AND(arrayId["A"][7],arrayId["B"][7])
 // console.log(result)
 
 // result = OR(0,1)
@@ -103,9 +104,12 @@ let z = [];
 let input;
 let gate = [];
 
+let operator;
 let value1;
 let value2;
-let operator;
+
+let arry1;
+let arry2;
 
 let output;
 let gateOutputs;
@@ -132,14 +136,25 @@ function logicGate(gate) {
             console.log(operator);
             console.log(element);
 
+            console.log(element[0]);
+
             value1 = (element[0]) ? element[0] : undefined;
             value2 = (element[1]) ? element[1] : undefined;
 
+            arry1 = arrayId[value1];
+            arry2 = arrayId[value2];
+            if (arry1 === undefined) {
+                arry1 = value1;
+            }
+            if (arry2 === undefined) {
+                arry2 = value2;
+            }
             console.log(value1, value2);
+            console.log(arry1,arry2);
 
             switch(operator) {
                 case 'AND':
-                    (value1 && value2) ? output = AND(value1, value2) : error('Input data error! Second value for "AND" not found');
+                    (value1 && value2) ? output = AND(arry1, arry2) : error('Input data error! Value for "AND" not found');
                     console.log(output)
                     console.log(element)
                     index = gate.indexOf(element);
@@ -151,7 +166,7 @@ function logicGate(gate) {
                     console.log(gate);
                     break;
                 case 'OR':
-                    (value1 && value2) ? output = OR(value1, value2) : error('Input data error! Second value for "OR" not found');
+                    (value1 && value2) ? output = OR(arry1, arry2) : error('Input data error! Value for "OR" not found');
                     console.log(output)
                     console.log(element)
                     index = gate.indexOf(element);
@@ -161,10 +176,9 @@ function logicGate(gate) {
                         gate[index] = output;
                     };
                     console.log(gate);
-
                     break;
                 case 'NOT':
-                    (value1) ? output = NOT(value1) : error('Input data error! Value for "NOT" not found');
+                    (value1) ? output = NOT(arry1) : error('Input data error! Value for "NOT" not found');
                     console.log(output)
                     console.log(element)
                     index = gate.indexOf(element);
@@ -196,34 +210,53 @@ function logicGate(gate) {
 }
 
 let index;
-function inputArray(arr) {
-    arr.forEach(ele => {
+let arr = [];
+// Convert column ID's to respective array
+function inputArray(inputArr) {
+    console.log(inputArr);
+    inputArr.forEach(ele => {
         if (Array.isArray(ele)) {
 
             inputArray(ele);
-            // console.log(ele);
+            console.log(ele);
         } else {
             
             if (ele.length == 1) {
-                // console.log(ele)
-                index = arr.indexOf(ele);
+                console.log(ele)
+                index = inputArr.indexOf(ele);
+                console.log(index);
                 if (index !== -1) {
-                    // console.log(tableCheck[ele]);
-                    arr[index] = tableCheck[ele];
+                    console.log(input[index]);
+                    console.log(arrayId[ele]);
+                    inputArr[index] = arrayId[ele];
                 };
             };
-            
         };
-    return arr;
     });
+    return inputArr;
 };
-
 // let tTable = truthTable.truthTable(3);
 // input = [['A','B','OR'],['C','NOT'],'AND'];
-input = [['A', 'NOT'],'B','OR'];
+// input = [[['A', 'NOT'],'B','OR']];
 // input = ['A', 'NOT'];
 
-inputArray(input);
+input = [['A',['B','NOT'],'AND'],[['A','NOT'],'B','AND'],'OR'];
+// input = [['A',['A','B','AND'],'AND'],[['A','NOT'],'B','AND'],'OR'];
+// input = ['A',['A'],'A'];
+
+// input = inputArray(input);
+console.log(input);
+console.log(input[0][1][0]);
+
+// input = input.flat(Infinity)
+console.log(input);
+// console.log(inputArray(input));
+console.log(input.entries());
+
+// for (const [index, element] of input.entries()) {
+//   console.log(index, element);
+// }
+
 console.log(input);
 
 gateOutputs = logicGate(input);
